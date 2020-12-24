@@ -51,11 +51,15 @@ class RoomController extends Controller
 
     $newRoom->save();
 
+    //creamos un token que nos servira para la union de los usuarios
+    //$token = $newUser->CreateToken('authToken')->accesToken;
+    $token = $newUser->createToken('authToken')->accessToken;
     //una ves creada la sala con save() pasamos a retornar un objeto a la vista
     $response['RoomName']= $newRoom->RoomName;
     $response['RoomCode']= $newRoom->RoomCode;
     $response['NameUsuario']= $newUser->NameUsuario;
     $response['AdminUserCode'] = $newRoom->AdminUserCode;
+    $response['token'] = $token;
     return $response;
   }
 
