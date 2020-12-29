@@ -21,6 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get("User/makeUser",[UserController::class, 'makeUser'])->name('User.makeUser');
-Route::get('User/me',[UserController::class, 'me'])->name('UserController.me')->middleware('auth:me');
+Route::get('User/me',[UserController::class, 'me'])->name('UserController.me');
 
 
