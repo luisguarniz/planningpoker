@@ -17,10 +17,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/',HomeController::class);
 
-Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
-//Route::get("User/makeUser",[UserController::class, 'makeUser'])->name('User.makeUser');
+//Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
 //Route::get("Room/obtenerCiudad",[RoomController::class, 'obtenerCiudad'])->name('Room.obtenerCity');
-Route::put("Room/deactivateRoom",[RoomController::class, 'deactivateRoom'])->name('Room.deactivateRoom');
+//Route::put("Room/deactivateRoom",[RoomController::class, 'deactivateRoom'])->name('Room.deactivateRoom');
 
 Route::post('users/{id}', function ($id) {
     

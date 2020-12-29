@@ -28,12 +28,11 @@ class UserController extends Controller
         $this->newUser ->save();
         
     //creamos un token que nos servira para la union de los usuarios
-    //$token = $newUser->CreateToken('authToken')->accesToken;
     $token = $this->newUser->CreateToken('authToken')->accessToken;
 
     $response['NameUsuario']= $this->newUser->NameUsuario;
     $response ['AdminUserCode'] = $this->newUser->AdminUserCode ;
-    $response ['$token'] = $token;
+    $response ['token'] = $token;
         //devolvemos el codigo de usuario por que sera incertado en un campo al crear el room de la otra tabla
         return $response;
     }

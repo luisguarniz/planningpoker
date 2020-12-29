@@ -1,27 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Animal;
+use App\Http\Controllers\Controller;
 use App\Models\City;
-use App\Models\Room;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Room;
+use Faker\Provider\Uuid;
 
 class RoomController extends Controller
 {
-  //este metodo espera el codigo y el token que devuelve la tabla user
+    //este metodo espera el codigo y el token que devuelve la tabla user
   public function makeRoom(Request $request)
   {
 
-    $permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
-    $roomID =  substr(str_shuffle($permitted_chars1), 0, 32); //guardamos los caracteres aleatorios
-    
     $ciudad = City::all()->random(); // con este metodo traigo un registro random
     $nomCiudad = $ciudad->CityName;
     $permitted_chars2 = '0123456789';
     $roomName = $nomCiudad . '-' . substr(str_shuffle($permitted_chars2), 0, 4);
-
 
 
     $permitted_chars3 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -31,7 +27,7 @@ class RoomController extends Controller
      
 
     $newRoom = new Room;
-    $newRoom->RoomID = $roomID;
+    $newRoom->RoomID = Uuid::uuid();
     $newRoom->AdminUserCode = $request->AdminUserCode;// es lo que traigo en los parametros de la funcion
     $newRoom->RoomName = $roomName;
     $newRoom->RoomCode = $roomCodeLetras . $roomCodeNumeros;
@@ -54,4 +50,3 @@ class RoomController extends Controller
            ]);
   }
 }
-
