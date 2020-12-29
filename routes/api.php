@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Broadcast;
@@ -19,9 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-//Route::post('User/register',  [AuthController::class, 'register'])->name('UserController.register');
-//Route::post('User/login',  [AuthController::class, 'login'])->name('UserController.login');
-//Route::get('User/me',  [AuthController::class, 'me'])->name('UserController.me')->middleware('auth:api');
-
+Route::get("User/makeUser",[UserController::class, 'makeUser'])->name('User.makeUser');
+Route::get('User/me',[UserController::class, 'me'])->name('UserController.me')->middleware('auth:me');
 
 
