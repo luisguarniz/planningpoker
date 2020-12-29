@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        '/*' // ESTO SIRVE PARA SOLUCIONAR EL TEMA DE CORS DEL ERROR EN POSTMAN
     ];
 }
