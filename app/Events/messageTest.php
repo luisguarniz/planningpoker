@@ -33,6 +33,7 @@ class messageTest implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel-test');
+       return new PrivateChannel('channel-test');
+        //return new Channel('channel-test');
     }
 }
