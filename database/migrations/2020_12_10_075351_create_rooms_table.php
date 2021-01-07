@@ -15,7 +15,7 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->uuid('RoomID')->primary();
-            $table->uuid('AdminUserCode');
+            $table->unsignedBigInteger('idAdmin');
             $table->string('RoomName');
             $table->string('RoomCode');
             $table->timestamps();
@@ -23,7 +23,7 @@ class CreateRoomsTable extends Migration
 
             
 
-            $table->foreign('AdminUserCode')->references('AdminUserCode')->on('users');//se lee: sera llave foranea 'AdminUserCode'
+            $table->foreign('idAdmin')->references('id')->on('users');//se lee: sera llave foranea 'AdminUserCode'
                                                                                       // refenciado del campo 'AdminUserCode' de la tabla 'users'
             
         });

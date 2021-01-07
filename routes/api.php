@@ -22,7 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Rutas del Host
 Route::get("User/makeUser",[UserController::class, 'makeUser'])->name('User.makeUser');
-Route::get('User/me',[UserController::class, 'me'])->name('UserController.me');
+Route::post("User/loginHost",[UserController::class, 'loginHost'])->name('api.auth.login');
+Route::get('User/me',[UserController::class, 'me'])
+->name('UserController.me')
+->middleware('auth:api');
 
 //Rutas del Invited
 Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('User.makeInvited');

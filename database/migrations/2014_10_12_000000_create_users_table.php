@@ -14,10 +14,13 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('AdminUserCode')->primary();
+            $table->id();//agrege esta columna como llave primaria para poder usar la funcion "me" que funciona con el token.
+            $table->uuid('AdminUserCode');
             $table->string('NameUsuario');
+            $table->string('password');//columna necesaria para poder usar Auth::attempt($data)
             $table->boolean('isAdmin')->default('0');
             $table->boolean('isInvited')->default('0');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

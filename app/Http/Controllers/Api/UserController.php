@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserLoginRequest;
 use App\Models\Animal;
 use App\Models\User;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -25,6 +27,7 @@ class UserController extends Controller
         $this->newUser = new User();
         $this->newUser->AdminUserCode = Uuid::uuid();
         $this->newUser->NameUsuario = $nomAnimal;
+        $this->newUser->password = bcrypt('12345678');
         $this->newUser->isAdmin = '1';
         $this->newUser->save();
         
@@ -32,16 +35,37 @@ class UserController extends Controller
     $token = $this->newUser->CreateToken('authToken')->accessToken;
 
     $response['NameUsuario']= $this->newUser->NameUsuario;
-    $response ['AdminUserCode'] = $this->newUser->AdminUserCode ;
+    $response ['AdminUserCode'] = $this->newUser->AdminUserCode;
     $response ['token'] = $token;
         //devolvemos el codigo de usuario por que sera incertado en un campo al crear el room de la otra tabla
         return $response;
     }
 
+
+    public function loginHost(UserLoginRequest $request){
+      $data = $request->only(['NameUsuario', 'password']);
+
+      if (!Auth::attempt($data)) {
+          return response()->json([
+           'ok'   => false,
+          'message' => 'error de credenciales',
+       ]);
+     }
+
+      $token = Auth::user()->createToken('authToken')->accessToken;
+
+      return response()->json([
+          'ok' => true,
+          'user' => Auth::user(),
+          'token' => $token
+      ]);
+    }
+
+
     public function me(){
         return response()->json([
             'ok' => true,
-            'user' => $this->newUser
+            'user' => Auth::user()
         ]);
     }
 
