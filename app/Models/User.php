@@ -13,4 +13,8 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasApiTokens;
 
 
+//Relacion de uno a muchos
+public function rooms(){
+    return $this->hasMany('App\Models\Room');
+}
 }

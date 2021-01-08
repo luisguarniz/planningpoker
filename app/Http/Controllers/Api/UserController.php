@@ -42,8 +42,8 @@ class UserController extends Controller
     }
 
 
-    public function loginHost(UserLoginRequest $request){
-      $data = $request->only(['NameUsuario', 'password']);
+    public function loginHost(Request $request){
+      $data = $request->only('NameUsuario', 'password');
 
       if (!Auth::attempt($data)) {
           return response()->json([
@@ -78,6 +78,7 @@ class UserController extends Controller
         $this->newInvited = new User();
         $this->newInvited->AdminUserCode = Uuid::uuid();
         $this->newInvited->NameUsuario = $nomAnimal;
+        $this->newUser->password = bcrypt('12345678');
         $this->newInvited->isInvited = '1';
         $this->newInvited->save();
         

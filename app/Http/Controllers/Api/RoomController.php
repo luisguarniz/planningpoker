@@ -28,7 +28,7 @@ class RoomController extends Controller
 
     $newRoom = new Room;
     $newRoom->RoomID = Uuid::uuid();
-    $newRoom->AdminUserCode = $request->AdminUserCode;// es lo que traigo en los parametros de la funcion
+    $newRoom->idAdmin = $request->idAdmin;// es lo que traigo en los parametros de la funcion
     $newRoom->RoomName = $roomName;
     $newRoom->RoomCode = $roomCodeLetras . $roomCodeNumeros;
     $newRoom->save();
@@ -38,7 +38,7 @@ class RoomController extends Controller
     $response['RoomName']= $newRoom->RoomName;
     $response['RoomCode']= $newRoom->RoomCode;
     $response['NameUsuario']= $request->NameUsuario;// es lo que traigo en los parametros de la funcion
-    $response['AdminUserCode'] = $newRoom->AdminUserCode;
+    $response['idAdmin'] = $newRoom->idAdmin;
     $response['token'] = $request->token;// es lo que traigo en los parametros de la funcion
     return $response;
   }

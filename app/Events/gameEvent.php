@@ -32,6 +32,6 @@ class gameEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel-game');
+        return new PrivateChannel('channel-game');
     }
 }
