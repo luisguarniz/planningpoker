@@ -35,7 +35,8 @@ class UserController extends Controller
     $token = $this->newUser->CreateToken('authToken')->accessToken;
 
     $response['NameUsuario']= $this->newUser->NameUsuario;
-    $response ['AdminUserCode'] = $this->newUser->AdminUserCode;
+    $response ['AdminUserCode']= $this->newUser->AdminUserCode;
+    $response['isAdmin']= $this->newUser->isAdmin = '1';
     $response ['token'] = $token;
         //devolvemos el codigo de usuario por que sera incertado en un campo al crear el room de la otra tabla
         return $response;
@@ -78,12 +79,18 @@ class UserController extends Controller
         $this->newInvited = new User();
         $this->newInvited->AdminUserCode = Uuid::uuid();
         $this->newInvited->NameUsuario = $nomAnimal;
-        $this->newUser->password = bcrypt('12345678');
+        $this->newInvited->password = bcrypt('12345678');
         $this->newInvited->isInvited = '1';
         $this->newInvited->save();
         
+
+        //creamos un token que nos servira para la union de los usuarios
+      $token = $this->newInvited->CreateToken('authToken')->accessToken;
+
        $response['nameInvited']= $this->newInvited->NameUsuario;
-       $response ['InvitedUserCode'] = $this->newInvited->AdminUserCode ;
+       $response['InvitedUserCode']= $this->newInvited->AdminUserCode;
+       $response['isInvited']= $this->newInvited->isInvited = '1';
+       $response ['token'] = $token;
         //devolvemos el codigo de usuario por que sera incertado en un campo al crear el room de la otra tabla
         return $response;
     }
