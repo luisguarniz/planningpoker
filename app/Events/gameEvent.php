@@ -30,7 +30,8 @@ class gameEvent implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn()// ver si este metodo recibe parametros. si es asi podriamos enviar el id del canal a donde nos queremos unir
+                                // y a su ves ese id lo concatenamos con channel-game
     {
         return new PrivateChannel('channel-game');
     }

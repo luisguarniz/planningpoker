@@ -18,15 +18,15 @@ class UserController extends Controller
     
     public function makeUser(){
         //Primero Creo un usuario
-        //$permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
-        //$userID =  substr(str_shuffle($permitted_chars1), 0, 32); //guardamos los caracteres aleatorios
+        $permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $nrorandom =  substr(str_shuffle($permitted_chars1), 0, 4); //guardamos los caracteres aleatorios
 
         $animal = Animal::all()->random(); // con este metodo traigo un registro random
         $nomAnimal = $animal->animalName;
     
         $this->newUser = new User();
         $this->newUser->AdminUserCode = Uuid::uuid();
-        $this->newUser->NameUsuario = $nomAnimal;
+        $this->newUser->NameUsuario = $nomAnimal.$nrorandom;
         $this->newUser->password = bcrypt('12345678');
         $this->newUser->isAdmin = '1';
         $this->newUser->save();
@@ -34,14 +34,18 @@ class UserController extends Controller
     //creamos un token que nos servira para la union de los usuarios
     $token = $this->newUser->CreateToken('authToken')->accessToken;
 
-    $response['NameUsuario']= $this->newUser->NameUsuario;
-    $response ['AdminUserCode']= $this->newUser->AdminUserCode;
-    $response['isAdmin']= $this->newUser->isAdmin = '1';
-    $response ['token'] = $token;
-        //devolvemos el codigo de usuario por que sera incertado en un campo al crear el room de la otra tabla
-        return $response;
-    }
+  //  $response['NameUsuario']= $this->newUser->NameUsuario;
+   // $response ['AdminUserCode']= $this->newUser->AdminUserCode;
+  //  $response['isAdmin']= $this->newUser->isAdmin = '1';
+  //  $response ['token'] = $token;
+   //     return $response;
 
+       return response()->json([
+         'ok'  => true,
+        'user' => $this->newUser,
+         'token' => $token
+       ]);
+        }
 
     public function loginHost(Request $request){
       $data = $request->only('NameUsuario', 'password');
@@ -72,13 +76,15 @@ class UserController extends Controller
 
     public function makeInvited(){
 
+        $permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $nrorandom =  substr(str_shuffle($permitted_chars1), 0, 4); //guardamos los caracteres aleatorios
 
         $animal = Animal::all()->random(); // con este metodo traigo un registro random
         $nomAnimal = $animal->animalName;
     
         $this->newInvited = new User();
         $this->newInvited->AdminUserCode = Uuid::uuid();
-        $this->newInvited->NameUsuario = $nomAnimal;
+        $this->newInvited->NameUsuario = $nomAnimal.$nrorandom;
         $this->newInvited->password = bcrypt('12345678');
         $this->newInvited->isInvited = '1';
         $this->newInvited->save();
@@ -87,11 +93,17 @@ class UserController extends Controller
         //creamos un token que nos servira para la union de los usuarios
       $token = $this->newInvited->CreateToken('authToken')->accessToken;
 
-       $response['nameInvited']= $this->newInvited->NameUsuario;
-       $response['InvitedUserCode']= $this->newInvited->AdminUserCode;
-       $response['isInvited']= $this->newInvited->isInvited = '1';
-       $response ['token'] = $token;
+//       $response['NameUsuario']= $this->newInvited->NameUsuario;
+//       $response['AdminUserCode']= $this->newInvited->AdminUserCode;
+ //      $response['isInvited']= $this->newInvited->isInvited = '1';
+ //      $response ['token'] = $token;
         //devolvemos el codigo de usuario por que sera incertado en un campo al crear el room de la otra tabla
-        return $response;
+ //       return $response;
+ return response()->json([
+    'ok'  => true,
+   'user' => $this->newInvited,
+    'token' => $token
+  ]);
+
     }
 }

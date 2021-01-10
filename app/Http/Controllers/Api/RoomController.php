@@ -37,16 +37,15 @@ class RoomController extends Controller
     //una ves creada la sala con save() pasamos a retornar un objeto a la vista
     $response['RoomName']= $newRoom->RoomName;
     $response['RoomCode']= $newRoom->RoomCode;
-    $response['NameUsuario']= $request->NameUsuario;// es lo que traigo en los parametros de la funcion
-    $response['idAdmin'] = $newRoom->idAdmin;
-    $response['token'] = $request->token;// es lo que traigo en los parametros de la funcion
+    $response['idAdmin'] = $newRoom->idAdmin;//este id admin que devuelve no es el que a creado la sala
     return $response;
   }
 
  
-  public function deactivateRoom(Request $request){
-           $room = Room::where('AdminUserCode',$request->RoomID)->update([
-            'IsActive'=> '0'
-           ]);
+  public function desactivateRoom(Request $request){
+    
+          $room = Room::where('idAdmin',$request->idAdmin)->update([
+           'IsActive'=> '0'
+        ]);
   }
 }

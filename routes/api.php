@@ -33,5 +33,4 @@ Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('Use
 
 //Rutas del Room
 Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
-//Route::get("Room/obtenerCiudad",[RoomController::class, 'obtenerCiudad'])->name('Room.obtenerCity');
-Route::put("Room/deactivateRoom",[RoomController::class, 'deactivateRoom'])->name('Room.deactivateRoom');
+Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->name('Room.desactivateRoom');
