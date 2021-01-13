@@ -20,3 +20,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('channel-test', function ($user){
     return $user;
 });
+
+//uniendose diferenciando por host
+//Broadcast::channel('channel-test.{roomCode}', function ($user, $roomCode){
+ //   if ($user->canJoinRoom($roomCode)) {
+ //      return ['id' => $user->id, 'name' => $user->NameUsuario];
+ //  }
+//});

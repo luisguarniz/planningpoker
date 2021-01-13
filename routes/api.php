@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoomController;
 use Illuminate\Http\Request;
@@ -34,3 +35,8 @@ Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('Use
 //Rutas del Room
 Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
 Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->name('Room.desactivateRoom');
+
+//ruta para desblokear las cartas de los participantes
+Route::post('Message/unblock',[MessageController::class, 'unblock'])
+->name('MessageController.unblock')
+->middleware('auth:api');

@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,14 +16,16 @@ class messageTest implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message; // para ser leida fuera del broadcast tiene que ser publica
+    //public $user;
     /**
      * Create a new event instance.
      *
      * @return void
-     */
+     */                         //User $user
     public function __construct($message)
     {
-        //
+    
+        //$this->message = $message;
         $this->message = $message;
     }
 
@@ -33,7 +36,8 @@ class messageTest implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-      // return new PrivateChannel('channel-test');
-        return new PrivateChannel('channel-test');
+       return new PrivateChannel('channel-test');
+     //   return new PrivateChannel('channel-test'.$this->user->id);
+    // return new PresenceChannel('channel-test.'.$this->message->roomCode);
     }
 }
