@@ -2,10 +2,8 @@
 
 namespace App\Events;
 
-use App\Models\User;
-use Illuminate\Broadcasting\Channel;
+use BeyondCode\LaravelWebSockets\WebSockets\Channels\PrivateChannel as ChannelsPrivateChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -15,18 +13,22 @@ class messageTest implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message; // para ser leida fuera del broadcast tiene que ser publica
-    //public $user;
+   // public $roomID;
+   // public $message; // para ser leida fuera del broadcast tiene que ser publica
+    public $response;
     /**
      * Create a new event instance.
      *
      * @return void
      */                         //User $user
-    public function __construct($message)
+    public function __construct($data)
     {
     
-        //$this->message = $message;
-        $this->message = $message;
+        $this->response = [
+            'msgUnblock'   => $data['msgUnblock'],
+            'to'           => $data['to'],
+            'from'         => auth()->user(),
+        ];
     }
 
     /**
@@ -36,8 +38,7 @@ class messageTest implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-       return new PrivateChannel('channel-test');
-     //   return new PrivateChannel('channel-test'.$this->user->id);
-    // return new PresenceChannel('channel-test.'.$this->message->roomCode);
+      // return new PrivateChannel('channel-test');
+       return new PrivateChannel("room.{$this->response['to']}");
     }
 }

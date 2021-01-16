@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 class MessageController extends Controller
 {
     public function unblock(Request $request){
-        event(new messageTest($request->msgUnblock));
+        $data = $request->only(['msgUnblock','to']);
 
+        event(new messageTest($data));
+     
         return response()->json([
             'ok'  => true,
             'message' => 'mensaje enviado correctamente',
