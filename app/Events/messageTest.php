@@ -26,6 +26,7 @@ class messageTest implements ShouldBroadcast
     
         $this->response = [
             'msgUnblock'   => $data['msgUnblock'],
+            'codigoSesion' => $data['codigoSesion'],
             'to'           => $data['to'],
             'from'         => auth()->user(),
         ];

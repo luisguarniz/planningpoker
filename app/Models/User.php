@@ -17,4 +17,7 @@ class User extends Authenticatable
 public function rooms(){
     return $this->hasMany('App\Models\Room');
 }
+public function votingsession(){
+    return $this->hasMany('App\Models\Votingsession');
+}
 }

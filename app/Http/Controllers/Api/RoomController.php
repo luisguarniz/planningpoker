@@ -35,6 +35,7 @@ class RoomController extends Controller
 
 
     //una ves creada la sala con save() pasamos a retornar un objeto a la vista
+    $response['RoomID'] = $newRoom->RoomID;
     $response['RoomName'] = $newRoom->RoomName;
     $response['RoomCode'] = $newRoom->RoomCode;
     $response['idAdmin'] = $newRoom->idAdmin; //este id admin que devuelve no es el que a creado la sala
@@ -47,6 +48,17 @@ class RoomController extends Controller
 
     $room = Room::where('idAdmin', $request->idAdmin)->update([
       'IsActive' => '0'
+    ]);
+  }
+
+  public function getRoom(Request $request)
+  {
+    $room = Room::where('RoomCode',$request->RoomCode)->first();
+
+    return response()->json([
+
+      'RoomName' => $room->RoomName,
+      'RoomCode' => $room->RoomCode
     ]);
   }
 }

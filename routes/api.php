@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\VoteSessionControlller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Broadcast;
@@ -35,6 +36,11 @@ Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('Use
 //Rutas del Room
 Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
 Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->name('Room.desactivateRoom');
+Route::get("Room/getRoom",[RoomController::class, 'getRoom'])->name('Room.getRoom');
+
+//Rutas de VoteSession
+Route::post("Votingsession/makeVotingSession",[VoteSessionControlller::class, 'makeVotingSession'])->name('Votingsession.makeVotingSession');
+Route::post("Votingsession/makeVote",[VoteSessionControlller::class, 'makeVote'])->name('Votingsession.makeVote');
 
 //ruta para desblokear las cartas de los participantes
 Route::post('Message/unblock',[MessageController::class, 'unblock'])
