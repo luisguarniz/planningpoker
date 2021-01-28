@@ -18,6 +18,7 @@ class CreateVotesTable extends Migration
             $table->uuid('VotingSessionCode')->nullable();
             $table->unsignedBigInteger('UserID')->nullable();
             $table->string('vote');
+            $table->boolean('IsActive')->default('1');
 
             $table->foreign('VotingSessionCode')
             ->references('VotingSessionCode')->on('votingsessions')

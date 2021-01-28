@@ -14,15 +14,20 @@ class gameEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $response;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($data)
     {
-        $this->message = $message;
+    
+        $this->response = [
+            'msgtrue'      => $data['msgtrue'],
+            'to'           => $data['to'],
+            'from'         => auth()->user(),
+        ];
     }
 
     /**
@@ -33,6 +38,6 @@ class gameEvent implements ShouldBroadcast
     public function broadcastOn()// ver si este metodo recibe parametros. si es asi podriamos enviar el id del canal a donde nos queremos unir
                                 // y a su ves ese id lo concatenamos con channel-game
     {
-        return new PrivateChannel('channel-game');
+        return new PrivateChannel("room.{$this->response['to']}");
     }
 }

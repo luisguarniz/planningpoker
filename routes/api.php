@@ -36,13 +36,21 @@ Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('Use
 //Rutas del Room
 Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
 Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->name('Room.desactivateRoom');
-Route::get("Room/getRoom",[RoomController::class, 'getRoom'])->name('Room.getRoom');
+Route::get("Room/getRoomInvited/{RoomCode}",[RoomController::class, 'getRoomInvited'])->name('Room.getRoomInvited');
 
 //Rutas de VoteSession
 Route::post("Votingsession/makeVotingSession",[VoteSessionControlller::class, 'makeVotingSession'])->name('Votingsession.makeVotingSession');
 Route::post("Votingsession/makeVote",[VoteSessionControlller::class, 'makeVote'])->name('Votingsession.makeVote');
+Route::get("Votingsession/getVotingSession/{VotingSessionCode}",[VoteSessionControlller::class, 'getVotingSession'])->name('Votingsession.getVotingSession');
+Route::put("Votingsession/desactivateVote",[VoteSessionControlller::class, 'desactivateVote'])->name('Votingsession.desactivateVote');
+//ruta para borras las cartas de los participantes
+Route::post('Votingsession/limpiarCartas',[VoteSessionControlller::class, 'limpiarCartas'])
+->name('Votingsession.limpiarCartas')
+->middleware('auth:api'); 
+
 
 //ruta para desblokear las cartas de los participantes
 Route::post('Message/unblock',[MessageController::class, 'unblock'])
 ->name('MessageController.unblock')
 ->middleware('auth:api');
+

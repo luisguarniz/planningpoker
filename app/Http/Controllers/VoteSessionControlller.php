@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\gameEvent;
 use App\Models\Vote;
 use App\Models\Votingsession;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VoteSessionControlller extends Controller
 {
@@ -28,11 +30,24 @@ class VoteSessionControlller extends Controller
         //devolvemos VotingSessionCode para enviarselo al participante desde el host
     }
 
+    public function getVotingSession(Request $request){
+        //   $query = Vote::where('VotingSessionCode',$request->VotingSessionCode)->Where('IsActive','1')->orderBy('vote','desc')->get();
+         //  return $query;
+
+
+           $query = DB::table('votes')
+            ->join('users', 'users.id', '=', 'votes.UserID')
+            ->select('users.NameUsuario', 'votes.UserID', 'votes.vote')
+            ->where('votes.VotingSessionCode',$request->VotingSessionCode)
+            ->Where('votes.IsActive','1')->orderBy('votes.vote','asc')
+            ->get();
+            // var_dump($query); die;
+         return $query;
+
+    }
+
     public function makeVote(Request $request){
-      //hacer un if para que compruebe si durante la session ese "userID" ya marco una tarjeta
-      // si ya existe un voto con ese UserID y ese VotingSessionCode entonces solo actualizar la carta
-      // si no existe coincidencias entonces crear el voto
-      //recordar que se entrara a este metodo cada vez que se clickee una carta
+
 
         $this->newVote = new Vote();
         $this->newVote->VotingSessionCode = $request->VotingSessionCode;
@@ -44,4 +59,22 @@ class VoteSessionControlller extends Controller
             'message' => "Se registro una votacion"
         ]);
     }
+
+    public function desactivateVote(Request $request){
+      
+        $room = Vote::where('UserID', $request->UserID)->update([
+            'IsActive' => '0'
+          ]);
+    }
+
+    public function limpiarCartas(Request $request){
+        // $data = $request->only(['msgUnblock','codigoSesion','to']);
+ 
+         event(new gameEvent($request));
+      
+         return response()->json([
+             'ok'  => true,
+             'message' => 'mensaje de limpiar cartas enviado correctamente',
+         ]);
+     }
 }

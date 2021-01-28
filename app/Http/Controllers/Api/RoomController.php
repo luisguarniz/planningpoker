@@ -51,14 +51,14 @@ class RoomController extends Controller
     ]);
   }
 
-  public function getRoom(Request $request)
+  public function getRoomInvited(Request $request)
   {
     $room = Room::where('RoomCode',$request->RoomCode)->first();
 
     return response()->json([
 
-      'RoomName' => $room->RoomName,
-      'RoomCode' => $room->RoomCode
+      'RoomNameI' => $room->RoomName,
+      'RoomCodeI' => $room->RoomCode
     ]);
   }
 }
