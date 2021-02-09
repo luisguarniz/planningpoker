@@ -25,3 +25,9 @@ Broadcast::channel('channel-test', function ($user){
 Broadcast::channel('room.{id}', function ($room) {
     return $room;
 });
+
+// TODO: validar existencia del usuario
+Broadcast::channel('votation.{id}', function ($user, $id) {
+   return (int) $user->AdminUserCode === (int) $id;
+       // return $user;
+});

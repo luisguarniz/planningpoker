@@ -38,7 +38,7 @@ class RoomController extends Controller
     $response['RoomID'] = $newRoom->RoomID;
     $response['RoomName'] = $newRoom->RoomName;
     $response['RoomCode'] = $newRoom->RoomCode;
-    $response['idAdmin'] = $newRoom->idAdmin; //este id admin que devuelve no es el que a creado la sala
+    $response['idAdmin'] = $newRoom->idAdmin;
     return $response;
   }
 
