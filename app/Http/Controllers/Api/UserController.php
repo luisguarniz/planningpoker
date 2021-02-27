@@ -19,6 +19,7 @@ class UserController extends Controller
   public function makeUser()
   {
     return response()->json([
+      'ok'  => true,
       'ok'  => true
     ]);
     //Primero Creo un usuario
