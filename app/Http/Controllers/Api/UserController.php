@@ -18,6 +18,9 @@ class UserController extends Controller
 
   public function makeUser()
   {
+    return response()->json([
+      'ok'  => true
+    ]);
     //Primero Creo un usuario
     $permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
     $nrorandom =  substr(str_shuffle($permitted_chars1), 0, 4); //guardamos los caracteres aleatorios
