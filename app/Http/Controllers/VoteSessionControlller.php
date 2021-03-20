@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\gameEvent;
+use App\Models\Phrase;
 use App\Models\User;
 use App\Models\Vote;
 use App\Models\Votingsession;
@@ -15,6 +16,8 @@ class VoteSessionControlller extends Controller
 {
     public $newSession;
     public $newVote;
+    public $variable = false;
+    public $saludo;
 
     public function makeVotingSession(Request $request)
     {
@@ -37,7 +40,8 @@ class VoteSessionControlller extends Controller
     {
         //   $query = Vote::where('VotingSessionCode',$request->VotingSessionCode)->Where('IsActive','1')->orderBy('vote','desc')->get();
         //  return $query;
-
+        //$frase = Finishvotinghost::all()->random();
+        $frase = Phrase::where('idkindphrase', 5)->get()->random();
 
         $query = DB::table('votes')
             ->join('users', 'users.id', '=', 'votes.UserID')
@@ -46,8 +50,11 @@ class VoteSessionControlller extends Controller
             //->Where('votes.IsActive', '1')
             ->orderByDesc('votes.vote')
             ->get();
-        // var_dump($query); die;
-        return $query;
+        //return $query;
+        return response()->json([
+            'votos' => $query,
+            'saludo' => $frase
+          ]);
     }
 
     public function setVotingParticipants(Request $request)
@@ -75,15 +82,41 @@ class VoteSessionControlller extends Controller
 
     public function makeVote(Request $request)
     {
+        
+        // consultar  si todos los votos de $request->VotingSessionCode son null entonces consultar la tabla phrasesfirstvotes
+        // pero si hay almenos un voto que no es null entonces consultar la tabla phrasesvotes
+        // devolver la frase random segun la tabla que se consulto
+        $votesall = Vote::where('votes.VotingSessionCode', $request->VotingSessionCode)->get();
+
+        for ($i=0; $i < count($votesall); $i++) { 
+            if ($votesall[$i]->vote !== null) {
+                $this->variable = true;
+            }else {
+                $this->variable = false;
+            }
+        }
 
         $votes = Vote::where('votes.VotingSessionCode', $request->VotingSessionCode)
         ->where('votes.UserID', $request->UserID)
         ->update([
             'vote' => $request->vote
         ]);
-        return response()->json([
-            'message' => "Se registro una votacion"
-        ]);
+
+        if ($this->variable == true) {
+            $this->saludo = Phrase::where('idkindphrase', 4)->get()->random();
+            return response()->json([
+              $this->saludo->Phrase
+              ]);
+
+        }else {
+             $this->saludo = Phrase::where('idkindphrase', 3)->get()->random();
+            return response()->json([
+              $this->saludo->Phrase
+              ]);
+        }
+       // return response()->json([
+         //   'message' => "Se registro una votacion"
+        //]);
     }
 
     //QUITAR ESTE METODO POR QUE AHORA EL MAKEVOTE Actualiza el voto y no crea mas votos

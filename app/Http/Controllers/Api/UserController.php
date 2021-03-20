@@ -85,7 +85,7 @@ class UserController extends Controller
 
     $this->newInvited = new User();
     $this->newInvited->AdminUserCode = Uuid::uuid();
-    //$this->newInvited->NameUsuario = $nomAnimal."-".$nrorandom;
+   // $this->newInvited->NameUsuario = $nomAnimal."-".$nrorandom;
     $this->newInvited->NameUsuario = $nomAnimal;
     $this->newInvited->password = bcrypt('12345678');
     $this->newInvited->isInvited = '1';
