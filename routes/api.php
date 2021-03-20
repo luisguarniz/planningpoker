@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\PhrasesController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\VoteSessionControlller;
@@ -59,3 +60,8 @@ Route::post('Message/unblock',[MessageController::class, 'unblock'])
 ->name('MessageController.unblock')
 ->middleware('auth:api');
 
+//Rutas de las frases
+Route::get("Phrase/saludoHost",[PhrasesController::class, 'saludoHost'])->name('Phrase.saludoHost');
+Route::get("Phrase/saludoInvited",[PhrasesController::class, 'saludoInvited'])->name('Phrase.saludoInvited');
+Route::get("Phrase/PhraseFinishInvited",[PhrasesController::class, 'PhraseFinishInvited'])->name('Phrase.PhraseFinishInvited');
+Route::get("Phrase/getPhraseRandom",[PhrasesController::class, 'getPhraseRandom'])->name('Phrase.getPhraseRandom');

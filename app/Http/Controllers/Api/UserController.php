@@ -31,7 +31,8 @@ class UserController extends Controller
 
     $this->newUser = new User();
     $this->newUser->AdminUserCode = Uuid::uuid();
-    $this->newUser->NameUsuario = $nomAnimal ."-".$nrorandom;
+    //$this->newUser->NameUsuario = $nomAnimal ."-".$nrorandom;
+    $this->newUser->NameUsuario = $nomAnimal;
     $this->newUser->password = bcrypt('12345678');
     $this->newUser->isAdmin = '1';
     $this->newUser->save();
@@ -88,7 +89,8 @@ class UserController extends Controller
 
     $this->newInvited = new User();
     $this->newInvited->AdminUserCode = Uuid::uuid();
-    $this->newInvited->NameUsuario = $nomAnimal."-".$nrorandom;
+   // $this->newInvited->NameUsuario = $nomAnimal."-".$nrorandom;
+    $this->newInvited->NameUsuario = $nomAnimal;
     $this->newInvited->password = bcrypt('12345678');
     $this->newInvited->isInvited = '1';
     $this->newInvited->save();
