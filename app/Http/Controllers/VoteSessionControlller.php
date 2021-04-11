@@ -48,7 +48,7 @@ class VoteSessionControlller extends Controller
             ->select('users.NameUsuario', 'votes.UserID', 'votes.vote')
             ->where('votes.VotingSessionCode', $request->VotingSessionCode)
             //->Where('votes.IsActive', '1')
-            ->orderByDesc('votes.vote')
+            ->orderBy('votes.vote', 'desc')
             ->get();
         //return $query;
         return response()->json([
