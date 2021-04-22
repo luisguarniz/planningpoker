@@ -45,7 +45,7 @@ class VoteSessionControlller extends Controller
 
         $query = DB::table('votes')
             ->join('users', 'users.id', '=', 'votes.UserID')
-            ->select('users.NameUsuario', 'votes.UserID', 'votes.vote')
+            ->select('users.NameUsuario','users.CustomName', 'votes.UserID', 'votes.vote')
             ->where('votes.VotingSessionCode', $request->VotingSessionCode)
             //->Where('votes.IsActive', '1')
             ->orderBy('votes.vote', 'desc')
@@ -74,7 +74,7 @@ class VoteSessionControlller extends Controller
         }
         $query = DB::table('votes')
         ->join('users', 'users.id', '=', 'votes.UserID')
-        ->select('users.NameUsuario','votes.vote')
+        ->select('users.NameUsuario','votes.vote','users.CustomName')
         ->where('votes.VotingSessionCode', $request->setVotes[0]['VotingSessionCode'])
         ->get();
     return $query;
@@ -138,5 +138,18 @@ class VoteSessionControlller extends Controller
             'ok'  => true,
             'message' => 'mensaje de limpiar cartas enviado correctamente',
         ]);
+    }
+
+    public function getParticipants(Request $request)
+    {
+
+        $query = DB::table('votes')
+            ->join('users', 'users.id', '=', 'votes.UserID')
+            ->select('users.NameUsuario','users.CustomName','votes.UserID')
+            ->where('votes.VotingSessionCode', $request->VotingSessionCode)
+            ->get();
+        return response()->json([
+            'participantes' => $query
+          ]);
     }
 }
