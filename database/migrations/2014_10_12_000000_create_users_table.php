@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();//agrege esta columna como llave primaria para poder usar la funcion "me" que funciona con el token.
             $table->uuid('AdminUserCode');
             $table->string('NameUsuario');
+            $table->string('CustomName')->nullable();//este campo se usara para almacenar el nombre modificado del participante
             $table->string('password');//columna necesaria para poder usar Auth::attempt($data)
             $table->boolean('isAdmin')->default('0');
             $table->boolean('isInvited')->default('0');

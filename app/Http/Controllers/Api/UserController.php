@@ -31,8 +31,9 @@ class UserController extends Controller
 
     $this->newUser = new User();
     $this->newUser->AdminUserCode = Uuid::uuid();
-    //$this->newUser->NameUsuario = $nomAnimal ."-".$nrorandom;
-    $this->newUser->NameUsuario = $nomAnimal;
+    $this->newUser->NameUsuario = $nomAnimal . "-" . $nrorandom;
+    $this->newUser->CustomName = $nomAnimal;
+    //$this->newUser->NameUsuario = $nomAnimal;
     $this->newUser->password = bcrypt('12345678');
     $this->newUser->isAdmin = '1';
     $this->newUser->save();
@@ -89,14 +90,16 @@ class UserController extends Controller
 
     $this->newInvited = new User();
     $this->newInvited->AdminUserCode = Uuid::uuid();
-   // $this->newInvited->NameUsuario = $nomAnimal."-".$nrorandom;
-    $this->newInvited->NameUsuario = $nomAnimal;
+    $this->newInvited->NameUsuario = $nomAnimal . "-" . $nrorandom;
+    $this->newInvited->CustomName = $nomAnimal;
+    //$this->newInvited->NameUsuario = $nomAnimal;
     $this->newInvited->password = bcrypt('12345678');
     $this->newInvited->isInvited = '1';
     $this->newInvited->save();
 
 
     //creamos un token que nos servira para la union de los usuarios
+    //necesario para unirse a los canales privados
     $token = $this->newInvited->CreateToken('authToken')->accessToken;
 
 
@@ -104,6 +107,19 @@ class UserController extends Controller
       'ok'  => true,
       'user' => $this->newInvited,
       'token' => $token
+    ]);
+  }
+
+  public function editNameUser(Request $request)
+  {
+
+    $newName = User::where('users.AdminUserCode', $request->AdminUserCode)
+      ->update([
+        'CustomName' => $request->CustomName
+      ]);
+
+    return response()->json([
+      'messagge' => "se modifico el nombre"
     ]);
   }
 }

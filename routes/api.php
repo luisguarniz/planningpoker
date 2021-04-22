@@ -29,6 +29,7 @@ Route::post("User/loginHost",[UserController::class, 'loginHost'])->name('api.au
 Route::get('User/me',[UserController::class, 'me'])
 ->name('UserController.me')
 ->middleware('auth:api');
+Route::put("User/editNameUser",[UserController::class, 'editNameUser'])->name('user.editNameUser');
 
 //Rutas del Invited
 Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('User.makeInvited');
@@ -54,6 +55,9 @@ Route::post('Votingsession/limpiarCartas',[VoteSessionControlller::class, 'limpi
 Route::post('Message/changeIcon',[MessageController::class, 'changeIcon'])
 ->name('MessageController.changeIcon')
 ->middleware('auth:api');
+
+//ruta para mostrar participantes a los invitados despues de presionar el voton star voting
+Route::get("Votingsession/getParticipants/{VotingSessionCode}",[VoteSessionControlller::class, 'getParticipants'])->name('Votingsession.getParticipants');
 
 //ruta para desblokear las cartas de los participantes
 Route::post('Message/unblock',[MessageController::class, 'unblock'])

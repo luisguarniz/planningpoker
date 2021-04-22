@@ -7,6 +7,7 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use Faker\Provider\Uuid;
+use Mockery\Undefined;
 
 class RoomController extends Controller
 {
@@ -53,8 +54,12 @@ class RoomController extends Controller
 
   public function getRoomInvited(Request $request)
   {
+    $message = null;
     $room = Room::where('RoomCode',$request->RoomCode)->first();
 
+    if ($room == null) {
+      return $message;
+    }
     return response()->json([
 
       'RoomNameI' => $room->RoomName,
