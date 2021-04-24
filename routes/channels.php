@@ -26,6 +26,11 @@ Broadcast::channel('room.{id}', function ($room) {
     return $room;
 });
 
+// ruta para cambiar nombre
+Broadcast::channel('changeName.{id}', function ($changeName) {
+    return $changeName;
+});
+
 // TODO: validar existencia del usuario
 Broadcast::channel('votation.{id}', function ($user, $id) {
    return (int) $user->AdminUserCode === (int) $id;

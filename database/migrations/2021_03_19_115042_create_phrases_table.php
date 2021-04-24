@@ -16,7 +16,7 @@ class CreatePhrasesTable extends Migration
         Schema::create('phrases', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idkindphrase');
-            $table->string('Phrase');
+            $table->string('Phrase', 1000);//se le aumenta de 255 a 1000
             $table->timestamps();
 
             $table->foreign('idkindphrase')
