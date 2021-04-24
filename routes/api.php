@@ -64,6 +64,11 @@ Route::post('Message/unblock',[MessageController::class, 'unblock'])
 ->name('MessageController.unblock')
 ->middleware('auth:api');
 
+//ruta para cambiar los nombres de los participantes
+Route::post('Message/changeName',[MessageController::class, 'changeName'])
+->name('MessageController.changeName')
+->middleware('auth:api');
+
 //Rutas de las frases
 Route::get("Phrase/saludoHost",[PhrasesController::class, 'saludoHost'])->name('Phrase.saludoHost');
 Route::get("Phrase/saludoInvited",[PhrasesController::class, 'saludoInvited'])->name('Phrase.saludoInvited');

@@ -74,7 +74,7 @@ class VoteSessionControlller extends Controller
         }
         $query = DB::table('votes')
         ->join('users', 'users.id', '=', 'votes.UserID')
-        ->select('users.NameUsuario','votes.vote','users.CustomName')
+        ->select('users.id','users.NameUsuario','votes.vote','users.CustomName')
         ->where('votes.VotingSessionCode', $request->setVotes[0]['VotingSessionCode'])
         ->get();
     return $query;
@@ -145,7 +145,7 @@ class VoteSessionControlller extends Controller
 
         $query = DB::table('votes')
             ->join('users', 'users.id', '=', 'votes.UserID')
-            ->select('users.NameUsuario','users.CustomName','votes.UserID')
+            ->select('users.id','users.NameUsuario','users.CustomName','votes.UserID')
             ->where('votes.VotingSessionCode', $request->VotingSessionCode)
             ->get();
         return response()->json([

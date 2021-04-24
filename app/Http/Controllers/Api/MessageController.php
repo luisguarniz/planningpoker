@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\changeState;
+use App\Events\messageChangeName;
 use App\Events\messageTest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -31,4 +32,16 @@ class MessageController extends Controller
              'to' => $request->to
          ]);
      }
+
+     public function changeName(Request $request){
+        // $data = $request->only(['msgUnblock','codigoSesion','to']);
+ 
+         event(new messageChangeName($request));
+      
+         return response()->json([
+             'ok'  => true,
+             'message' => 'mensaje para cambiar el nombre enviado correctamente',
+         ]);
+     }
+ 
 }
