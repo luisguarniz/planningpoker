@@ -10,6 +10,7 @@ use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -117,9 +118,12 @@ class UserController extends Controller
     $Namepokemon = User::select('users.CustomName')
     ->where('users.AdminUserCode', $request->AdminUserCode)->first();
     
+    //reseteo el nombre para que no se concatene si editan mas de una ves su nombre
+    $NamepokemonReset = Str::after($Namepokemon->CustomName, "-");
+
     $newName = User::where('users.AdminUserCode', $request->AdminUserCode)
       ->update([
-        'CustomName' => $request->CustomName ."-". $Namepokemon->CustomName
+        'CustomName' => $request->CustomName ."-". $NamepokemonReset
       ]);
 
     return response()->json([
