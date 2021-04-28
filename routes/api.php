@@ -39,6 +39,9 @@ Route::get("User/makeInvited",[UserController::class, 'makeInvited'])->name('Use
 Route::post("Room/makeRoom",[RoomController::class, 'makeRoom'])->name('Room.makeRoom');
 Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->name('Room.desactivateRoom');
 Route::get("Room/getRoomInvited/{RoomCode}",[RoomController::class, 'getRoomInvited'])->name('Room.getRoomInvited');
+Route::post("Room/makeStatus",[RoomController::class, 'makeStatus'])->name('Room.makeStatus');
+Route::put("Room/changeStatus",[RoomController::class, 'changeStatus'])->name('Room.changeStatus');
+Route::get("Room/getStatus/{RoomCode}",[RoomController::class, 'getStatus'])->name('Room.getStatus');
 
 //Rutas de VoteSession
 Route::post("Votingsession/makeVotingSession",[VoteSessionControlller::class, 'makeVotingSession'])->name('Votingsession.makeVotingSession');
