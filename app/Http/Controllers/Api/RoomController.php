@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Statu;
 use Faker\Provider\Uuid;
+use Illuminate\Support\Facades\DB;
 use Mockery\Undefined;
 
 class RoomController extends Controller
@@ -65,5 +67,43 @@ class RoomController extends Controller
       'RoomNameI' => $room->RoomName,
       'RoomCodeI' => $room->RoomCode
     ]);
+  }
+
+  public function makeStatus(Request $request)
+  {
+      $this->newStatu = new Statu();
+      $this->newStatu->RoomCode = $request->RoomCode;
+      $this->newStatu->save();
+
+      return response()->json([
+          'message' => "Se creo un registro para estado"
+      ]);
+  }
+
+  public function changeStatus(Request $request)
+  {
+
+
+    $newName = Statu::where('status.RoomCode', $request->RoomCode)
+      ->update([
+        'bloquear' => $request->bloquear
+      ]);
+
+    return response()->json([
+      'messagge' => "se modifico el estado"
+    ]);
+  }
+
+  public function getStatus(Request $request)
+  {
+
+        $query = DB::table('status')
+            ->select('status.bloquear')
+            ->where('status.RoomCode', $request->RoomCode)
+            ->get();
+            return $query;
+            return response()->json([
+              'bloquear' => $query
+            ]);
   }
 }
