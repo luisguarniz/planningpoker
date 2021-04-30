@@ -118,7 +118,7 @@ class RoomController extends Controller
             ->select('status.bloquear')
             ->where('status.RoomCode', $request->RoomCode)
             ->get();
-            return $query;
+         //   return $query;
             return response()->json([
               'bloquear' => $query
             ]);
