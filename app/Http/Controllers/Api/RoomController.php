@@ -69,6 +69,23 @@ class RoomController extends Controller
     ]);
   }
 
+  public function getRoomhost(Request $request)
+  {
+    $message = null;
+    $room = Room::where('RoomCode',$request->RoomCode)->first();
+
+    if ($room == null) {
+      return $message;
+    }
+    return response()->json([
+
+      'RoomID'=>$room->RoomID,
+      'RoomName' => $room->RoomName,
+      'RoomCode' => $room->RoomCode,
+      'idAdmin'=> $room->idAdmin
+    ]);
+  }
+
   public function makeStatus(Request $request)
   {
       $this->newStatu = new Statu();
@@ -101,7 +118,7 @@ class RoomController extends Controller
             ->select('status.bloquear')
             ->where('status.RoomCode', $request->RoomCode)
             ->get();
-            return $query;
+         //   return $query;
             return response()->json([
               'bloquear' => $query
             ]);
