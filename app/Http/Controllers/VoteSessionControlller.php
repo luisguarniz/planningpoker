@@ -80,6 +80,16 @@ class VoteSessionControlller extends Controller
     return $query;
 }
 
+public function getVotingParticipants(Request $request){
+
+    $query = DB::table('votes')
+    ->join('users', 'users.id', '=', 'votes.UserID')
+    ->select('users.id','users.NameUsuario','votes.vote','users.CustomName')
+    ->where('votes.VotingSessionCode', $request->VotingSessionCode)
+    ->get();
+return $query;
+}
+
     public function makeVote(Request $request)
     {
         

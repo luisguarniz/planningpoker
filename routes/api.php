@@ -56,6 +56,7 @@ Route::post("Votingsession/makeVotingSession",[VoteSessionControlller::class, 'm
 Route::post("Votingsession/makeVote",[VoteSessionControlller::class, 'makeVote'])->name('Votingsession.makeVote');
 Route::get("Votingsession/getVotingSession/{VotingSessionCode}",[VoteSessionControlller::class, 'getVotingSession'])->name('Votingsession.getVotingSession');
 Route::post("Votingsession/setVotingParticipants",[VoteSessionControlller::class, 'setVotingParticipants'])->name('Votingsession.setVotingParticipants');
+Route::get("Votingsession/getVotingParticipants/{VotingSessionCode}",[VoteSessionControlller::class, 'getVotingParticipants'])->name('Votingsession.getVotingParticipants');
 Route::put("Votingsession/desactivateVote",[VoteSessionControlller::class, 'desactivateVote'])->name('Votingsession.desactivateVote');
 //ruta para borras las cartas de los participantes
 Route::post('Votingsession/limpiarCartas',[VoteSessionControlller::class, 'limpiarCartas'])
