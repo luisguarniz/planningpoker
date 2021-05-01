@@ -97,7 +97,7 @@ class RoomController extends Controller
       ]);
   }
 
-  public function changeStatus(Request $request)
+  public function changeStatusCartas(Request $request)
   {
 
 
@@ -111,7 +111,7 @@ class RoomController extends Controller
     ]);
   }
 
-  public function getStatus(Request $request)
+  public function getStatusCartas(Request $request)
   {
 
         $query = DB::table('status')
@@ -121,6 +121,64 @@ class RoomController extends Controller
          //   return $query;
             return response()->json([
               'bloquear' => $query
+            ]);
+  }
+
+
+  public function changeStatusbtnVoting(Request $request)
+  {
+
+
+    $newName = Statu::where('status.RoomCode', $request->RoomCode)
+      ->update([
+        'StarVotingStatus' => $request->StarVotingStatus,
+        'StopVotingStatus' => $request->StopVotingStatus
+      ]);
+
+    return response()->json([
+      'messagge' => "se modifico el estado del boton star voting"
+    ]);
+  }
+
+  public function getStatusbtnVoting(Request $request)
+  {
+
+        $query = DB::table('status')
+            ->select('status.StarVotingStatus')
+            ->where('status.RoomCode', $request->RoomCode)
+            ->get();
+         //   return $query;
+            return response()->json([
+              'StarVotingStatus' => $query
+            ]);
+  }
+
+
+  public function changeStatusbtnStopVoting(Request $request)
+  {
+
+
+    $newName = Statu::where('status.RoomCode', $request->RoomCode)
+      ->update([
+        'StopVotingStatus' => $request->StopVotingStatus,
+        'StarVotingStatus' => $request->StarVotingStatus 
+      ]);
+
+    return response()->json([
+      'messagge' => "se modifico el estado del boton Stop Voting"
+    ]);
+  }
+
+  public function getStatusbtnStopVoting(Request $request)
+  {
+
+        $query = DB::table('status')
+            ->select('status.StopVotingStatus')
+            ->where('status.RoomCode', $request->RoomCode)
+            ->get();
+         //   return $query;
+            return response()->json([
+              'StopVotingStatus' => $query
             ]);
   }
 }

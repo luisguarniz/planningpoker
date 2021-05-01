@@ -41,8 +41,15 @@ Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->n
 Route::get("Room/getRoomInvited/{RoomCode}",[RoomController::class, 'getRoomInvited'])->name('Room.getRoomInvited');
 Route::get("Room/getRoomhost/{RoomCode}",[RoomController::class, 'getRoomhost'])->name('Room.getRoomhost');
 Route::post("Room/makeStatus",[RoomController::class, 'makeStatus'])->name('Room.makeStatus');
-Route::put("Room/changeStatus",[RoomController::class, 'changeStatus'])->name('Room.changeStatus');
-Route::get("Room/getStatus/{RoomCode}",[RoomController::class, 'getStatus'])->name('Room.getStatus');
+
+Route::put("Room/changeStatusCartas",[RoomController::class, 'changeStatusCartas'])->name('Room.changeStatusCartas');
+Route::get("Room/getStatusCartas/{RoomCode}",[RoomController::class, 'getStatusCartas'])->name('Room.getStatusCartas');
+
+Route::put("Room/changeStatusbtnVoting",[RoomController::class, 'changeStatusbtnVoting'])->name('Room.changeStatusbtnVoting');
+Route::get("Room/getStatusbtnVoting/{RoomCode}",[RoomController::class, 'getStatusbtnVoting'])->name('Room.getStatusbtnVoting');
+
+Route::put("Room/changeStatusbtnStopVoting",[RoomController::class, 'changeStatusbtnStopVoting'])->name('Room.changeStatusbtnStopVoting');
+Route::get("Room/getStatusbtnStopVoting/{RoomCode}",[RoomController::class, 'getStatusbtnStopVoting'])->name('Room.getStatusbtnStopVoting');
 
 //Rutas de VoteSession
 Route::post("Votingsession/makeVotingSession",[VoteSessionControlller::class, 'makeVotingSession'])->name('Votingsession.makeVotingSession');
