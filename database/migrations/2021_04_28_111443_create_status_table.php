@@ -17,6 +17,8 @@ class CreateStatusTable extends Migration
             $table->id();
             $table->string('RoomCode');
             $table->boolean('bloquear')->default('1');
+            $table->boolean('StarVotingStatus')->default('1');
+            $table->boolean('StopVotingStatus')->default('0');
             $table->timestamps();
         });
     }
