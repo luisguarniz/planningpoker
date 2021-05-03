@@ -41,14 +41,22 @@ Route::put("Room/desactivateRoom",[RoomController::class, 'desactivateRoom'])->n
 Route::get("Room/getRoomInvited/{RoomCode}",[RoomController::class, 'getRoomInvited'])->name('Room.getRoomInvited');
 Route::get("Room/getRoomhost/{RoomCode}",[RoomController::class, 'getRoomhost'])->name('Room.getRoomhost');
 Route::post("Room/makeStatus",[RoomController::class, 'makeStatus'])->name('Room.makeStatus');
-Route::put("Room/changeStatus",[RoomController::class, 'changeStatus'])->name('Room.changeStatus');
-Route::get("Room/getStatus/{RoomCode}",[RoomController::class, 'getStatus'])->name('Room.getStatus');
+
+Route::put("Room/changeStatusCartas",[RoomController::class, 'changeStatusCartas'])->name('Room.changeStatusCartas');
+Route::get("Room/getStatusCartas/{RoomCode}",[RoomController::class, 'getStatusCartas'])->name('Room.getStatusCartas');
+
+Route::put("Room/changeStatusbtnVoting",[RoomController::class, 'changeStatusbtnVoting'])->name('Room.changeStatusbtnVoting');
+Route::get("Room/getStatusbtnVoting/{RoomCode}",[RoomController::class, 'getStatusbtnVoting'])->name('Room.getStatusbtnVoting');
+
+Route::put("Room/changeStatusbtnStopVoting",[RoomController::class, 'changeStatusbtnStopVoting'])->name('Room.changeStatusbtnStopVoting');
+Route::get("Room/getStatusbtnStopVoting/{RoomCode}",[RoomController::class, 'getStatusbtnStopVoting'])->name('Room.getStatusbtnStopVoting');
 
 //Rutas de VoteSession
 Route::post("Votingsession/makeVotingSession",[VoteSessionControlller::class, 'makeVotingSession'])->name('Votingsession.makeVotingSession');
 Route::post("Votingsession/makeVote",[VoteSessionControlller::class, 'makeVote'])->name('Votingsession.makeVote');
 Route::get("Votingsession/getVotingSession/{VotingSessionCode}",[VoteSessionControlller::class, 'getVotingSession'])->name('Votingsession.getVotingSession');
 Route::post("Votingsession/setVotingParticipants",[VoteSessionControlller::class, 'setVotingParticipants'])->name('Votingsession.setVotingParticipants');
+Route::get("Votingsession/getVotingParticipants/{VotingSessionCode}",[VoteSessionControlller::class, 'getVotingParticipants'])->name('Votingsession.getVotingParticipants');
 Route::put("Votingsession/desactivateVote",[VoteSessionControlller::class, 'desactivateVote'])->name('Votingsession.desactivateVote');
 //ruta para borras las cartas de los participantes
 Route::post('Votingsession/limpiarCartas',[VoteSessionControlller::class, 'limpiarCartas'])
