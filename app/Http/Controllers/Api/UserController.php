@@ -120,14 +120,15 @@ class UserController extends Controller
     
     //reseteo el nombre para que no se concatene si editan mas de una ves su nombre
     $NamepokemonReset = Str::after($Namepokemon->CustomName, "-");
+    $nombre = Str::ucfirst($request->CustomName )."-".Str::ucfirst($NamepokemonReset);
 
     $newName = User::where('users.AdminUserCode', $request->AdminUserCode)
       ->update([
-        'CustomName' => $request->CustomName ."-". $NamepokemonReset
+        'CustomName' => $nombre
       ]);
 
     return response()->json([
-      'messagge' => "se modifico el nombre"
+      'messagge' => $nombre
     ]);
   }
 }
